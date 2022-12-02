@@ -1,0 +1,55 @@
+<html>
+  <head>
+    <script src="https://www.gstatic.com/firebasejs/ui/6.0.1/firebase-ui-auth.js"></script>
+<link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/6.0.1/firebase-ui-auth.css" />
+  </head>
+  <div id="sign-in-button"></div>
+  
+</html>
+<script type='module'>
+  
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-app.js";
+import { signInWithEmailLink, getAuth,RecaptchaVerifier, isSignInWithEmailLink, signInWithPhoneNumber } from 'https://www.gstatic.com/firebasejs/9.8.4/firebase-auth.js';
+
+const firebaseConfig = {
+    apiKey: "AIzaSyDL2gZNtgOaSa-v15I3rO2tBOx_GGjyAC8",
+    authDomain: "viral-stage-dev.firebaseapp.com",
+    projectId: "viral-stage-dev",
+    storageBucket: "viral-stage-dev.appspot.com",
+    messagingSenderId: "599517700092",
+    appId: "1:599517700092:web:ba7114c0e11c2946221c79",
+    measurementId: "G-W0X3915MB9"
+  };
+
+  
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+//app.languageCode = 'it';
+
+const auth = getAuth(app);
+console.log('auth================>', auth)
+//auth.appVerificationDisabledForTesting = true;
+
+// To apply the default browser preference instead of explicitly setting it.
+// firebase.auth().useDeviceLanguage();
+window.recaptchaVerifier = new RecaptchaVerifier('sign-in-button');
+
+
+const appVerifier = window.recaptchaVerifier;
+const phoneNumber = '+911234567890'
+console.log('-------------------');
+signInWithPhoneNumber(app, phoneNumber, appVerifier)
+    .then((confirmationResult) => {
+      console.log("confirmationResult", confirmationResult)
+      // SMS sent. Prompt user to type the code from the message, then sign the
+      // user in with confirmationResult.confirm(code).
+      //window.confirmationResult = confirmationResult;
+      // ...
+    }).catch((error) => {
+      console.log("error", error)
+      // Error; SMS not sent
+      // ...
+    });
+
+   
+</script>
